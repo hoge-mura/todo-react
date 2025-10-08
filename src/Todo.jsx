@@ -22,19 +22,17 @@ export const Todo = () => {
     loadArray("completeTodos")
   );
 
-  // 編集中の情報（未完了リストの index と入力値）
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingText, setEditingText] = useState("");
 
   useEffect(() => {
     localStorage.setItem("incompleteTodos", JSON.stringify(incompleteTodos));
   }, [incompleteTodos]);
-
   useEffect(() => {
     localStorage.setItem("completeTodos", JSON.stringify(completeTodos));
   }, [completeTodos]);
 
-  const onChangeTodoText = (event) => setTodoText(event.target.value);
+  const onChangeTodoText = (e) => setTodoText(e.target.value);
 
   const onClickAdd = () => {
     const value = todoText.trim();
@@ -44,7 +42,6 @@ export const Todo = () => {
   };
 
   const onClickDelete = (index) => {
-    // 編集中に削除されたら編集モード解除
     if (editingIndex === index) {
       setEditingIndex(null);
       setEditingText("");
@@ -55,7 +52,6 @@ export const Todo = () => {
   };
 
   const onClickComplete = (index) => {
-    // 編集中に完了されたら編集モード解除
     if (editingIndex === index) {
       setEditingIndex(null);
       setEditingText("");
@@ -73,22 +69,17 @@ export const Todo = () => {
     setIncompleteTodos((prev) => [...prev, target]);
   };
 
-  // 編集開始
   const onStartEdit = (index) => {
     setEditingIndex(index);
     setEditingText(incompleteTodos[index]);
   };
-
-  // 編集キャンセル
   const onCancelEdit = () => {
     setEditingIndex(null);
     setEditingText("");
   };
-
-  // 編集保存
   const onSaveEdit = () => {
     const value = editingText.trim();
-    if (!value) return; // 空は保存しない
+    if (!value) return;
     const next = [...incompleteTodos];
     next[editingIndex] = value;
     setIncompleteTodos(next);
@@ -97,24 +88,33 @@ export const Todo = () => {
   };
 
   return (
-    <>
+    <main className="app">
+      <h1 className="app-title">React TODO</h1>
+
+      <div className="summary">
+        <span className="badge active">未完了 {incompleteTodos.length}</span>
+        <span className="badge done">完了 {completeTodos.length}</span>
+      </div>
+
       <InputTodo
         todoText={todoText}
         onChange={onChangeTodoText}
         onClick={onClickAdd}
       />
-      <IncompleteTodos
-        todos={incompleteTodos}
-        onClickComplete={onClickComplete}
-        onClickDelete={onClickDelete}
-        editingIndex={editingIndex}
-        editingText={editingText}
-        onStartEdit={onStartEdit}
-        onChangeEdit={(e) => setEditingText(e.target.value)}
-        onCancelEdit={onCancelEdit}
-        onSaveEdit={onSaveEdit}
-      />
-      <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
-    </>
+      <div className="columns">
+        <IncompleteTodos
+          todos={incompleteTodos}
+          onClickComplete={onClickComplete}
+          onClickDelete={onClickDelete}
+          editingIndex={editingIndex}
+          editingText={editingText}
+          onStartEdit={onStartEdit}
+          onChangeEdit={(e) => setEditingText(e.target.value)}
+          onCancelEdit={onCancelEdit}
+          onSaveEdit={onSaveEdit}
+        />
+        <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
+      </div>
+    </main>
   );
 };

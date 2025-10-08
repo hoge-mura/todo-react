@@ -72,3 +72,229 @@ button:hover {
   margin-right: 6px;
   min-width: 220px;
 }
+
+/* --- ベース --- */
+:root {
+  --bg: #f6f9fb;
+  --card: #ffffff;
+  --muted: #6b7785;
+  --primary: #2563eb;
+  --primary-weak: #e8f0ff;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --ring: rgba(37, 99, 235, 0.25);
+  --border: #e6ecf1;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+    "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "YuGothic",
+    "Meiryo", sans-serif;
+  color: #0f172a;
+  background: radial-gradient(60% 80% at 0% 0%, #eef5ff 0%, transparent 60%),
+    radial-gradient(70% 80% at 100% 0%, #f8ffef 0%, transparent 60%), var(--bg);
+}
+
+/* --- コンテナ/レイアウト --- */
+.app {
+  max-width: 880px;
+  margin: 32px auto;
+  padding: 16px;
+}
+.app-title {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.summary {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+}
+.badge.active {
+  border-color: #cde0ff;
+  background: var(--primary-weak);
+  color: var(--primary);
+  font-weight: 600;
+}
+.badge.done {
+  border-color: #d6f5e1;
+  background: #eefdf4;
+  color: var(--success);
+  font-weight: 600;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 760px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 入力欄 --- */
+.input-area {
+  display: flex;
+  gap: 0;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0;
+  overflow: hidden;
+  margin: 16px 0 20px;
+}
+.input-area input {
+  flex: 1;
+  padding: 0 12px;
+  font-size: 15px;
+  background: #fff;
+  color: #0f172a;
+}
+.input-area input,
+.input-area button {
+  height: 40px;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+}
+.input-area:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+.input-area button:focus {
+  box-shadow: inset 0 0 0 2px var(--ring);
+  outline: none;
+}
+.input-area button {
+  padding: 0 16px;
+  background: var(--primary-weak);
+  color: var(--primary);
+  font-weight: 600;
+  border-left: 1px solid var(--border);
+  cursor: pointer;
+}
+.input-area button:hover {
+  filter: brightness(0.98);
+}
+.input-area button:hover {
+  filter: brightness(0.98);
+}
+
+/* --- リスト --- */
+.incomplete-area,
+.complete-area {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+  border-radius: 14px;
+  padding: 12px 12px 6px;
+}
+.title {
+  text-align: left;
+  margin: 4px 6px 10px;
+  font-weight: 700;
+  color: #0f172a;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li + li {
+  margin-top: 8px;
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+}
+.list-row:hover {
+  background: #f6f9ff;
+}
+
+.todo-item {
+  flex: 1;
+  margin: 0;
+  font-size: 15px;
+}
+.todo-item.done {
+  text-decoration: line-through;
+  color: #64748b;
+  opacity: 0.85;
+}
+
+/* --- ボタン --- */
+button {
+  border: 1px solid var(--border);
+  background: #f8fafc;
+  color: #0f172a;
+  border-radius: 10px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+button:hover {
+  background: #eef2f7;
+}
+button[aria-label="完了"] {
+  border-color: #cde0ff;
+  background: var(--primary-weak);
+  color: var(--primary);
+  font-weight: 600;
+}
+button[aria-label="削除"] {
+  border-color: #ffd7d7;
+  background: #fff2f2;
+  color: var(--danger);
+  font-weight: 600;
+}
+button[aria-label="戻す"] {
+  border-color: #d6f5e1;
+  background: #eefdf4;
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* --- 編集入力 --- */
+.edit-input {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  min-width: 220px;
+}
+.edit-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--ring);
+}
