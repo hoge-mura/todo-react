@@ -64,3 +64,11 @@ button:hover {
 .todo-item {
   margin: 6px;
 }
+
+.edit-input {
+  border-radius: 8px;
+  border: 1px solid #aacfd0;
+  padding: 6px 12px;
+  margin-right: 6px;
+  min-width: 220px;
+}

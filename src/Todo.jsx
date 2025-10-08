@@ -15,7 +15,6 @@ const loadArray = (key) => {
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
-  // ★ 初期値を localStorage からロード（遅延初期化）
   const [incompleteTodos, setIncompleteTodos] = useState(() =>
     loadArray("incompleteTodos")
   );
@@ -23,7 +22,10 @@ export const Todo = () => {
     loadArray("completeTodos")
   );
 
-  // 配列が変わるたびに保存（復元は初期化時点で完了している）
+  // 編集中の情報（未完了リストの index と入力値）
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editingText, setEditingText] = useState("");
+
   useEffect(() => {
     localStorage.setItem("incompleteTodos", JSON.stringify(incompleteTodos));
   }, [incompleteTodos]);
@@ -42,23 +44,56 @@ export const Todo = () => {
   };
 
   const onClickDelete = (index) => {
-    const newTodos = [...incompleteTodos];
-    newTodos.splice(index, 1);
-    setIncompleteTodos(newTodos);
+    // 編集中に削除されたら編集モード解除
+    if (editingIndex === index) {
+      setEditingIndex(null);
+      setEditingText("");
+    }
+    const next = [...incompleteTodos];
+    next.splice(index, 1);
+    setIncompleteTodos(next);
   };
 
   const onClickComplete = (index) => {
-    const newIncomplete = [...incompleteTodos];
-    const target = newIncomplete.splice(index, 1)[0];
-    setIncompleteTodos(newIncomplete);
+    // 編集中に完了されたら編集モード解除
+    if (editingIndex === index) {
+      setEditingIndex(null);
+      setEditingText("");
+    }
+    const nextIncomplete = [...incompleteTodos];
+    const target = nextIncomplete.splice(index, 1)[0];
+    setIncompleteTodos(nextIncomplete);
     setCompleteTodos((prev) => [...prev, target]);
   };
 
   const onClickBack = (index) => {
-    const newComplete = [...completeTodos];
-    const target = newComplete.splice(index, 1)[0];
-    setCompleteTodos(newComplete);
+    const nextComplete = [...completeTodos];
+    const target = nextComplete.splice(index, 1)[0];
+    setCompleteTodos(nextComplete);
     setIncompleteTodos((prev) => [...prev, target]);
+  };
+
+  // 編集開始
+  const onStartEdit = (index) => {
+    setEditingIndex(index);
+    setEditingText(incompleteTodos[index]);
+  };
+
+  // 編集キャンセル
+  const onCancelEdit = () => {
+    setEditingIndex(null);
+    setEditingText("");
+  };
+
+  // 編集保存
+  const onSaveEdit = () => {
+    const value = editingText.trim();
+    if (!value) return; // 空は保存しない
+    const next = [...incompleteTodos];
+    next[editingIndex] = value;
+    setIncompleteTodos(next);
+    setEditingIndex(null);
+    setEditingText("");
   };
 
   return (
@@ -72,6 +107,12 @@ export const Todo = () => {
         todos={incompleteTodos}
         onClickComplete={onClickComplete}
         onClickDelete={onClickDelete}
+        editingIndex={editingIndex}
+        editingText={editingText}
+        onStartEdit={onStartEdit}
+        onChangeEdit={(e) => setEditingText(e.target.value)}
+        onCancelEdit={onCancelEdit}
+        onSaveEdit={onSaveEdit}
       />
       <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
     </>
