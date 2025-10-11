@@ -1,6 +1,6 @@
 # React TODO
 
-未経験からの学習ポートフォリオとして作成したシンプルな TODO アプリです。  
+未経験からの学習ポートフォリオとして作成したシンプルな TODO アプリです。
 未完了／完了の切り替え、編集、削除、localStorage 永続化に対応しています。
 
 ## デモ
@@ -30,6 +30,7 @@
 
 ## ディレクトリ構成（抜粋）
 
+```
 src/
 ├─ components/
 │ ├─ CompleteTodos.jsx
@@ -38,3 +39,4 @@ src/
 ├─ Todo.jsx
 ├─ index.jsx
 └─ styles.css
+```
