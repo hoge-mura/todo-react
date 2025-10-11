@@ -1,12 +1,40 @@
-# React + Vite
+# React TODO
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+未経験からの学習ポートフォリオとして作成したシンプルな TODO アプリです。  
+未完了／完了の切り替え、編集、削除、localStorage 永続化に対応しています。
 
-Currently, two official plugins are available:
+## デモ
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 本番 URL：<<Vercel の URL>>
+- リポジトリ：https://github.com/hoge-mura/todo-react
 
-## Expanding the ESLint configuration
+## スクリーンショット
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![React TODO Screenshot](./public/screenshot-main.png)
+
+## 主な機能
+
+- タスクの追加（Enter キー対応・空白ガード）
+- タスクの編集（保存／キャンセル）
+- 未完了 ↔ 完了（戻す）の切り替え
+- 削除
+- ブラウザ `localStorage` による保存・復元
+- スマホ幅で 1 カラムに自動レイアウト
+
+## 技術スタック
+
+- React (Hooks)
+- Vite / Node.js
+- JavaScript (ES6)
+- CSS（軽量スタイル）
+
+## ディレクトリ構成（抜粋）
+
+src/
+├─ components/
+│ ├─ CompleteTodos.jsx
+│ ├─ IncompleteTodos.jsx
+│ └─ InputTodo.jsx
+├─ Todo.jsx
+├─ index.jsx
+└─ styles.css
