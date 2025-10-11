@@ -5,7 +5,7 @@
 
 ## デモ
 
-- 本番 URL：<<Vercel の URL>>
+- 本番 URL：https://todo-react-theta-gules.vercel.app/
 - リポジトリ：https://github.com/hoge-mura/todo-react
 
 ## スクリーンショット
