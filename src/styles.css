@@ -162,12 +162,13 @@ body {
   display: flex;
   gap: 0;
   align-items: center;
-  background: var(--card);
+  background: transparent; /* ← 背景を消す */
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 0;
   overflow: hidden;
   margin: 16px 0 20px;
+  position: relative;
 }
 .input-area input {
   flex: 1;
@@ -183,6 +184,9 @@ body {
   border-radius: 0;
   outline: none;
   box-shadow: none;
+  margin-right: -1px;
+  border-left: none;
+  box-shadow: inset 1px 0 0 var(--border);
 }
 .input-area:focus-within {
   border-color: var(--primary);
@@ -204,6 +208,7 @@ body {
 .input-area button:hover {
   filter: brightness(0.98);
 }
+
 .input-area button:hover {
   filter: brightness(0.98);
 }
